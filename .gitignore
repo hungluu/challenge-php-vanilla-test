@@ -1,0 +1,46 @@
+# reserved empty folder
+!**/*/.gitkeep
+
+# PHP
+composer.phar
+/vendor/
+
+# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+# composer.lock
+
+# NODEJS
+# dependencies
+/node_modules
+/bower_components
+/vendor
+
+# testing
+/coverage
+
+# production or auto-generated
+/build
+/dist
+/.next
+/docs
+/runtime
+!/runtime/.gitkeep
+
+# gitbook
+_book
+
+# .gitignore-example-from-docusaurus
+lib/core/metadata.js
+lib/core/MetadataBlog.js
+website/translated_docs
+website/build/
+website/yarn.lock
+website/node_modules
+website/i18n/*
+
+# misc
+.DS_Store
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

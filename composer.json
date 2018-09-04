@@ -1,0 +1,20 @@
+{
+  "name": "hungluu/mvc-test",
+  "description": "A simple MVC test with design patterns, unit testing, API structure, UI/UX ...",
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Hung Luu",
+      "email": "hungluu2106@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "app\\": "src/"
+    }
+  },
+  "require": {
+    "vlucas/phpdotenv": "^2.5"
+  }
+}
