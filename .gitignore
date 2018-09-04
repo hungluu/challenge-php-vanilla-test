@@ -22,7 +22,7 @@ composer.phar
 /build
 /dist
 /.next
-/docs
+#/docs
 /runtime
 !/runtime/.gitkeep
 
