@@ -1,9 +1,10 @@
 # MVC test with design patterns, unit testing, API structure, UI/UX ...
 
 **Table of contents**
+
   - [Prerequisites](#prerequisites)
   - [Getting started](#getting-started)
-  - [Commands](#Commands)
+  - [Commands](#commands)
   - [Structure](#structure)
   - [Issues](#issues)
   - [License](#license)
