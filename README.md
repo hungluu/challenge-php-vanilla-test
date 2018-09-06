@@ -1,5 +1,7 @@
 # MVC test with design patterns, unit testing, API structure, UI/UX ...
 
+[![Cirle CI][cirle-ci-badge]][cirle-ci-url]
+
 **Table of contents**
 
   - [Prerequisites](#prerequisites)
@@ -32,6 +34,8 @@ composer docker:start       # Ensure docker containers set up and start the appl
 composer docker:start:watch # Alias of docker:start in watch mode
 composer docker:restart     # Restart docker containers
 composer docker:rm          # Removed installed docker containers
+composer test:unit          # Run unit tests
+composer test               # Run all tests
 ```
 
 ## Structure
@@ -42,3 +46,6 @@ Please leave any issues under Issues section of this repository. I will try my b
 
 ## License
 This project is licensed under MIT. Feel free to use any parts of this project for you works.
+
+[cirle-ci-badge]: https://circleci.com/gh/hungluu/mvc-test.png?style=shield
+[cirle-ci-url]: https://circleci.com/gh/hungluu/mvc-test
