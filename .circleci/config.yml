@@ -1,6 +1,9 @@
-version: 2 # use CircleCI 2.0, check https://circleci.com/docs/2.0/language-php/ for more details
-
-jobs: # a collection of steps
+# PHP CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-php/ for more details
+#
+version: 2
+jobs:
   build:
     docker:
       # specify the version you desire here
@@ -10,11 +13,10 @@ jobs: # a collection of steps
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/mysql:9.4
-  
+
     working_directory: ~/repo
-    branches:
-      - develop
-    steps: # a set of executable commands
+
+    steps:
       - checkout # special step to check out source code to working directory
       
       - run: sudo composer self-update
