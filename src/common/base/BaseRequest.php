@@ -5,7 +5,7 @@ namespace app\common\base;
  * Class BaseRequest
  * @package app\common\base
  */
-class BaseRequest extends BaseComponent {
+abstract class BaseRequest extends BaseComponent {
 
   /**
    * Sanitize received headers

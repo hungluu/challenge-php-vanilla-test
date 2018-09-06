@@ -5,6 +5,6 @@ namespace app\common\base;
  * Class BaseRouter
  * @package app\common\base
  */
-class BaseRouter extends BaseComponent {
+abstract class BaseRouter extends BaseComponent {
 
 }
