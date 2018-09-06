@@ -2,7 +2,6 @@ version: 2 # use CircleCI 2.0, check https://circleci.com/docs/2.0/language-php/
 
 jobs: # a collection of steps
   build:
-  test:
     docker:
       # specify the version you desire here
       - image: circleci/php:7.1.5-browsers
