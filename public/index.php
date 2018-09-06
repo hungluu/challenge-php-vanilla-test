@@ -29,3 +29,5 @@ if ($method === 'GET') {
 $params = $params ? $params : [];
 
 var_dump($params);
+
+var_dump(dirname('\Foo\Bar\Baz'));

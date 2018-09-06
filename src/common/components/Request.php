@@ -39,6 +39,7 @@ class Request extends BaseRequest implements RequestInterface {
     $this->_params = $sanitized_options['params'];
     $this->_method = $sanitized_options['method'];
     $this->_uri = $sanitized_options['uri'];
+    parent::__construct($options);
   }
 
   /**

@@ -40,7 +40,7 @@ class App extends BaseService implements SingletonInterface {
     }
   }
 
-  /**
+    /**
    * Run app
    * @param string $root_dir app root dir
    * @throws Exception When root dir not found

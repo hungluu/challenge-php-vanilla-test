@@ -41,4 +41,17 @@ class RouterTest extends \Codeception\Test\Unit
     $this->expectException(InvalidArgumentException::class);
     $this->router->initRoutes($routes);
   }
+  
+  public function testCanResolveRoutes () {
+    $test_callback = function () {
+      return 'tested';
+    };
+    
+    $this->router->initRoutes(['a' => $test_callback]);
+    $this->assertEquals($test_callback(), $this->router->resolve('a'));
+  }
+
+  public function testShouldReturnNullWhenNoRouteMatched () {
+    $this->assertEquals(null, $this->router->resolve('not-found'));
+  }
 }

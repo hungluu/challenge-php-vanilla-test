@@ -14,7 +14,7 @@ interface RouterInterface {
    * @param array $params form / request / body params
    * @param array $servers server information, example $_SERVER
    */
-  public function resolve (string $uri, string $method, array $params = [], array $servers = []);
+  public function resolve (string $uri, string $method = 'GET', array $params = [], array $servers = []);
   
   /**
    * Init routes

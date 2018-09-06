@@ -19,22 +19,23 @@ class Router extends BaseRouter implements RouterInterface {
    * @param string $method request method
    * @param array $params form / request / body params
    * @param array $servers server information, example $_SERVER
+   * @return mixed
    */
-  public function resolve (string $uri, string $method, array $params = [], array $servers = []) {
-//    foreach ($this->_routes as $route_name => $route_callback) {
-//      if (strpos($uri, $route_name) === 0) {
-//        $servers = filter_var_array($servers, FILTER_SANITIZE_STRING);
-//        $request_options = [
-//          'uri' => $uri,
-//          'method' => $method,
-//          'params' => $params,
-//          'headers' => $servers
-//        ];
-//        $action_name = str_replace($route_name, '', $uri);
-//        $route_callback($action_name, new Request($request_options), new Response());
-//        break; // uri resolved
-//      }
-//    }
+  public function resolve (string $uri, string $method = 'GET', array $params = [], array $servers = []) {
+    foreach ($this->_routes as $route_name => $route_callback) {
+      if (strpos($uri, $route_name) === 0) {
+        $servers = filter_var_array($servers, FILTER_SANITIZE_STRING);
+        $request_options = [
+          'uri' => $uri,
+          'method' => $method,
+          'params' => $params,
+          'headers' => $servers
+        ];
+        return $route_callback($route_name, new Request($request_options), new Response());
+      }
+    }
+    
+    return null;
   }
 
   /**
@@ -42,8 +43,8 @@ class Router extends BaseRouter implements RouterInterface {
    * @param array routes with string key and callback value
    */
   public function initRoutes (array $routes) {
-    foreach ($routes as $routeName => $routeCallback) {
-      if (!is_string($routeName) || !is_callable($routeCallback)) {
+    foreach ($routes as $route_name => $route_callback) {
+      if (!is_string($route_name) || !is_callable($route_callback)) {
         throw new InvalidArgumentException('routes contains invalid route format');
       }
     }
