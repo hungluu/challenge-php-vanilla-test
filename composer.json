@@ -12,6 +12,10 @@
   "scripts": {
     "test:unit": "\"./vendor/bin/codecept\" run unit",
     "test": "composer test:unit"
+    "docker:start": "docker-compose -f config/docker/docker-compose.yml up -d",
+    "docker:start:watch": "docker-compose -f config/docker/docker-compose.yml up",
+    "docker:rm": "docker-compose -f config/docker/docker-compose.yml down",
+    "docker:restart": "docker-compose -f config/docker/docker-compose.yml restart"
   },
   "autoload": {
     "psr-4": {
