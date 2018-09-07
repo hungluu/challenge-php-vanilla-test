@@ -1,7 +1,17 @@
 <?php
 namespace app\common\base;
 
-class BaseRequest {
+/**
+ * Class BaseRequest
+ * @package app\common\base
+ */
+abstract class BaseRequest extends BaseComponent {
+
+  /**
+   * Sanitize received headers
+   * @param array $raw_headers headers
+   * @return array
+   */
   public function sanitizeHeaders (array $raw_headers) {
     $headers = [];
     foreach ($raw_headers as $raw_key => $raw_value) {
