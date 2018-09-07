@@ -21,8 +21,15 @@ abstract class BaseApiController extends BaseController {
    */
   public function isJsonRequest (RequestInterface $request) {
     $json_mime_types = ['application/vnd.api+json', 'application/json'];
-    return in_array($request->getHeader('Content-Type'), $json_mime_types)
-      || in_array($request->getHeader('Accept'), $json_mime_types);
+    foreach ($json_mime_types as $mime_type) {
+      if (strpos($request->getHeader('Content-Type'), $mime_type) !== false) {
+        return true;
+      } elseif (strpos($request->getHeader('Accept'), $mime_type) !== false) {
+        return true;
+      }
+    }
+    
+    return false;
   }
 
   /**
@@ -36,13 +43,13 @@ abstract class BaseApiController extends BaseController {
   public function handleApiError (string $action_name, RequestInterface $request, ResponseInterface $response, Exception $ex) {
     if ($this->isJsonRequest($request)) {
       if ($ex instanceof NotFoundException) {
-        http_response_code(404);
+        $response->setResponseCode(404);
         $response->send($this->getApiResponse([], $ex->getMessage(), 404), TRUE);
       } elseif ($ex instanceof ForbiddenAccessException) {
-        http_response_code(403);
+        $response->setResponseCode(403);
         $response->send($this->getApiResponse([], $ex->getMessage(), 403), TRUE);
       } else {
-        http_response_code(500);
+        $response->setResponseCode(500);
         $response->send($this->getApiResponse([], $ex->getMessage(), 500), TRUE);
       }
     } else {

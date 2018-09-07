@@ -91,4 +91,13 @@ class Request extends BaseRequest implements RequestInterface, ComponentInterfac
   public function getUri () {
     return $this->_uri;
   }
+
+  /**
+   * Get all params
+   * @param integer|array $filter default value will not sanitize returned value, used for sanitize request params
+   * @return array
+   */
+  public function getParams ($filter = null) {
+    return empty($filter) ? filter_var_array($this->_params, $filter) : $this->_params;
+  }
 }

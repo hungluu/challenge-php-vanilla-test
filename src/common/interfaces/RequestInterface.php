@@ -33,4 +33,11 @@ interface RequestInterface {
    * @return mixed
    */
   public function get (string $key, int $filter = FILTER_FLAG_NONE);
+
+  /**
+   * Get all params
+   * @param integer|array $filter default value will not sanitize returned value, used for sanitize request params
+   * @return array
+   */
+  public function getParams ($filter = null);
 }
