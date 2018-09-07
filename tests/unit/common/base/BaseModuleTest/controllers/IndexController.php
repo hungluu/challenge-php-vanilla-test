@@ -3,6 +3,7 @@ namespace app\common\base\BaseModuleTest\controllers;
 
 use app\common\base\BaseController;
 use app\common\interfaces\ControllerInterface;
+use app\common\interfaces\ModuleInterface;
 
 class IndexController extends BaseController implements ControllerInterface {
   protected $_module;
@@ -15,7 +16,7 @@ class IndexController extends BaseController implements ControllerInterface {
     return 'index-test';
   }
 
-  public function setModule ($module) {
+  public function setModule (ModuleInterface $module) {
     $this->_module = $module;
   }
 
