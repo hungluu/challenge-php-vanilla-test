@@ -2,6 +2,7 @@
 namespace app\common\components;
 
 use app\common\base\BaseRouter;
+use app\common\interfaces\ComponentInterface;
 use app\common\interfaces\RouterInterface;
 use InvalidArgumentException;
 
@@ -9,7 +10,7 @@ use InvalidArgumentException;
  * Class Router
  * @package app\common\components
  */
-class Router extends BaseRouter implements RouterInterface {
+class Router extends BaseRouter implements RouterInterface, ComponentInterface {
   private $_routes = [];
 
   /**

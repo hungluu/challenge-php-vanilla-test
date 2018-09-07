@@ -1,7 +1,10 @@
 <?php
 namespace app\common\base\BaseModuleTest\controllers;
 
-class IndexController {
+use app\common\base\BaseController;
+use app\common\interfaces\ControllerInterface;
+
+class IndexController extends BaseController implements ControllerInterface {
   protected $_module;
 
   public function actionIndex () {

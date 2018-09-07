@@ -26,7 +26,9 @@ abstract class BaseModule extends BaseComponent {
     if (strpos($controller_path, '/') !== false) {
       $controller_sub_path = '\\' . str_replace('/', '\\', dirname($controller_path)) . '\\';
     }
-    $controller_class_path = dirname($this->getClassName()) . '\\controllers' . $controller_sub_path . $controller_class_name;
+    $module_class_name = $this->getClassName();
+    $module_namespace = preg_replace('/\\\\\w+$/', '', $module_class_name);
+    $controller_class_path = $module_namespace . '\\controllers' . $controller_sub_path . $controller_class_name;
     
     return [
       'path' => $controller_file_path,
@@ -68,7 +70,6 @@ abstract class BaseModule extends BaseComponent {
 
     // get action name
     $action_name = basename(str_replace($controller_path, '', $sub_uri));
-    $action_method = $action_name ? 'action' . ucfirst($action_name) : 'actionIndex';
 
     if (!is_file($controller_config['path'])) {
       throw new Exception('Controller ' . $controller_path . ' not found');
@@ -83,11 +84,9 @@ abstract class BaseModule extends BaseComponent {
     $controller_class = $controller_config['className'];
     /** @var ControllerInterface $controller */
     $controller = new $controller_class();
-    if (!method_exists($controller, $action_method)) {
-      throw new Exception('Action ' . $controller_config['className'] . '::' . $action_method . ' not found');
-    }
 
     $controller->setModule($this);
+    $controller->handleAction($action_name, $request, $response);
     return $controller;
   }
 }

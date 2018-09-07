@@ -14,8 +14,19 @@ interface ResponseInterface {
   public function setHeader (string $key, string $value);
 
   /**
+   * Send headers
+   */
+  public function sendHeaders ();
+
+  /**
+   * Get headers
+   */
+  public function getHeaders ();
+  
+  /**
    * Send response to client
    * @param string $text text to be sent
+   * @param boolean $send_header whether to send headers
    */
-  public function send (string $text);
+  public function send (string $text, bool $send_header = FALSE);
 }

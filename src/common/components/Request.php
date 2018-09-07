@@ -2,6 +2,7 @@
 namespace app\common\components;
 
 use app\common\base\BaseRequest;
+use app\common\interfaces\ComponentInterface;
 use app\common\interfaces\RequestInterface;
 
 /**
@@ -10,7 +11,7 @@ use app\common\interfaces\RequestInterface;
  * Manage requests and request headers
  * @package app\common\components
  */
-class Request extends BaseRequest implements RequestInterface {
+class Request extends BaseRequest implements RequestInterface, ComponentInterface {
   private $_headers = [];
   private $_params = [];
   private $_method = 'GET';
@@ -37,7 +38,7 @@ class Request extends BaseRequest implements RequestInterface {
     ]);
     $this->_headers = $this->sanitizeHeaders($sanitized_options['headers']);
     $this->_params = $sanitized_options['params'];
-    $this->_method = $sanitized_options['method'];
+    $this->_method = $sanitized_options['method'] ? $sanitized_options['method'] : 'GET';
     $this->_uri = $sanitized_options['uri'];
     parent::__construct($options);
   }

@@ -2,6 +2,7 @@
 namespace app\common\components;
 
 use app\common\base\BaseView;
+use app\common\interfaces\ComponentInterface;
 use app\common\interfaces\ViewInterface;
 use Exception;
 
@@ -11,7 +12,7 @@ use Exception;
  * Manage view file path and view data / options
  * @package app\common\components
  */
-class View extends BaseView implements ViewInterface {
+class View extends BaseView implements ViewInterface, ComponentInterface {
   /**
    * Create a View
    * @param array $options view options
