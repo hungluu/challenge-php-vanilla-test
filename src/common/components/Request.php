@@ -22,7 +22,7 @@ class Request extends BaseRequest implements RequestInterface {
    *
    * @param array $options request options, should contain uri, method, headers ...
    */
-  public function __construct (array $options) {
+  public function __construct (array $options = []) {
     $sanitized_options = filter_var_array($options, [
       'uri' => FILTER_SANITIZE_STRING,
       'method' => FILTER_SANITIZE_STRING,

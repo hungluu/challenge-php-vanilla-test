@@ -31,7 +31,7 @@ class Router extends BaseRouter implements RouterInterface {
           'params' => $params,
           'headers' => $servers
         ];
-        return $route_callback($route_name, new Request($request_options), new Response());
+        return $route_callback($route_name, $uri, new Request($request_options), new Response());
       }
     }
     

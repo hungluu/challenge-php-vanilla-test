@@ -1,6 +1,7 @@
 <?php
 namespace app\common\base;
 
+use app\common\interfaces\ControllerInterface;
 use app\common\interfaces\RequestInterface;
 use app\common\interfaces\ResponseInterface;
 use Exception;
@@ -47,18 +48,28 @@ abstract class BaseModule extends BaseComponent {
 
   /**
    * Trigger an action
-   * @param string $route route path, contains module/controller/action
+   * @param string $route route path
+   * @param string $uri full uri, contains module/controller/action
    * @param RequestInterface $request request
    * @param ResponseInterface $response response
    * @throws Exception when controller not found
    * @throws Exception when controller class undefined
    * @throws Exception when action not found
-   * @return mixed
+   * @return ControllerInterface
    */
-  public function __invoke (string $route, RequestInterface $request, ResponseInterface $response) {
-    $action_method = 'action' . ucfirst(basename($route));
-    $controller_path = dirname($route);
+  public function __invoke (string $route, string $uri, RequestInterface $request, ResponseInterface $response) {
+    // remove the route from uri
+    $sub_uri = trim(substr($uri, strlen($route)), '/');
+
+    // get controller path
+    $controller_path = dirname($sub_uri);
+    $controller_path = $controller_path !== '.' && $controller_path !== '' ? $controller_path : 'index';
     $controller_config = $this->resolveController($controller_path);
+
+    // get action name
+    $action_name = basename(str_replace($controller_path, '', $sub_uri));
+    $action_method = $action_name ? 'action' . ucfirst($action_name) : 'actionIndex';
+
     if (!is_file($controller_config['path'])) {
       throw new Exception('Controller ' . $controller_path . ' not found');
     }
@@ -68,12 +79,15 @@ abstract class BaseModule extends BaseComponent {
       throw new Exception('Controller class ' . $controller_config['className'] . ' not found');
     }
     
+
     $controller_class = $controller_config['className'];
+    /** @var ControllerInterface $controller */
     $controller = new $controller_class();
     if (!method_exists($controller, $action_method)) {
       throw new Exception('Action ' . $controller_config['className'] . '::' . $action_method . ' not found');
     }
-    
-    return $controller->$action_method($request, $response);
+
+    $controller->setModule($this);
+    return $controller;
   }
 }
