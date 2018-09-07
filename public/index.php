@@ -33,7 +33,8 @@ try {
     $params = filter_input_array(INPUT_POST, FILTER_UNSAFE_RAW );
   }
   $params = $params ? $params : [];
-  $uri = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
+  $full_uri = filter_input(INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_STRING);
+  $uri = explode('?', $full_uri)[0];
   $server_protocal = filter_input(INPUT_SERVER, 'SERVER_PROTOCOL', FILTER_SANITIZE_STRING);
 
   // Init router
@@ -45,7 +46,6 @@ try {
   // Init App
   $app = App::instance();
   $app->addComponent('router', $router);
-
   
   $app->router->resolve($uri, $method, $params, $servers);
 } catch (Exception $ex) {
