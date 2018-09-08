@@ -22,8 +22,22 @@ composer install
 
 The application can be started with this command:
 ```
-composer docker:start
+composer start
 ```
+
+Wait for its completion, and get which docker container is used for running database, for example `docker_db_1`
+
+Then use this command to do migration:
+```
+# CAUTION: This command should be used only once
+# When the first time you run composer start
+# This command creates `schedule` table with some dummy data
+
+cat config/migrations/20180908_102801_test_schedule.sql | docker exec -i docker_db_1 psql -U postgres -d test
+```
+
+Access this application via browser with ip command `docker-machine ip` show, for example: [http://192.168.99.100/](http://192.168.99.100/)
+
 For more information about all available commands, please head down to `Commands` section
 
 ## Commands
@@ -31,11 +45,12 @@ Available commands:
 ```
 composer install            # Install all required composer packages
 composer docker:start       # Ensure docker containers set up and start the application
-composer docker:start:watch # Alias of docker:start in watch mode
+composer docker:watch       # Alias of docker:start in watch mode
 composer docker:restart     # Restart docker containers
 composer docker:rm          # Removed installed docker containers
 composer test:unit          # Run unit tests
 composer test               # Run all tests
+composer start              # Start application
 ```
 
 ## Structure
