@@ -1,0 +1,30 @@
+<!doctype html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Making an event currently displayable</title>
+    <link rel="stylesheet" href="/js/dxhtml/codebase/dhtmlxscheduler_material.css">
+    <link rel="stylesheet" href="/css/index.css">
+  </head>
+  <body>
+    <!-- scheduler -->
+    <div class="schedule-list"></div>
+    <!-- lib -->
+    <script src="/js/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/js/moment/moment.min.js"></script>
+    <script src="/js/moment/locale/vi.js"></script>
+    <script src="/js/dxhtml/codebase/dhtmlxscheduler.js"></script>
+    <script src="/js/dxhtml/codebase/ext/dhtmlxscheduler_readonly.js"></script>
+    <script src="/js/Schedule.js"></script>
+  
+    <!-- init -->
+    <script>
+      
+      (function ($) {
+        $(document).ready(function () {
+          var schedule = new Schedule()
+          schedule.init('.schedule-list', moment.utc().toDate(), 'week')
+        })
+      })(jQuery)
+    </script>
+  </body>
+</html>

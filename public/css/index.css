@@ -1,0 +1,89 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.schedule-list {
+  width: 100%;
+  height: 100%;
+}
+
+/* Remove left menu */
+.dhx_cal_event.dhx_cal_select_menu{
+  display:none;
+}
+
+/* Button style */
+.dhx_cal_button {
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  color: #0288d1;
+  right: 57px;
+  background: transparent;
+  height: 30px;
+  width: 80px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  text-transform: uppercase;
+  border-radius: 2px;
+  line-height: 30px;
+}
+
+.dhx_cal_button:hover {
+  border: 1px solid transparent;
+  background-color: rgba(0,0,0,.1);
+  transition: all .1s ease-in-out;
+}
+
+.button-create {
+  color: #01FF70;
+}
+
+.button-create:hover {
+  border: 1px solid transparent;
+  background: #2ECC40;
+  color: #FFFFFF;
+  transition: all .1s ease-in-out;
+}
+
+/* Event style */
+.event--scheduled {
+  opacity: 1;
+}
+
+.event--old {
+  opacity: 1;
+}
+.event--old.dhx_cal_event_clear {
+  color: #303030;
+}
+.event--old .dhx_body {
+  background: #a3bac7;
+}
+.event--old .dhx_title {
+  background: #a3bac7;
+}
+.event--old .dhx_header {
+  background: #a3bac7;
+}
+
+.event--cancelled {
+  opacity: 1;
+}
+.event--cancelled.dhx_cal_event_clear {
+  color: #AAA;
+  text-decoration: line-through;
+}
+.event--cancelled .dhx_body {
+  background: #DDD;
+}
+.event--cancelled .dhx_title {
+  background: #DDD;
+}
+.event--cancelled .dhx_header {
+  background: #DDD;
+}

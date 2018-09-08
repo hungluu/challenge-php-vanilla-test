@@ -9,12 +9,27 @@
       "email": "hungluu2106@gmail.com"
     }
   ],
+  "scripts": {
+    "docker:start": "docker-compose -f config/docker/docker-compose.yml up -d",
+    "docker:watch": "docker-compose -f config/docker/docker-compose.yml up",
+    "docker:rm": "docker-compose -f config/docker/docker-compose.yml down",
+    "docker:restart": "docker-compose -f config/docker/docker-compose.yml restart",
+    "test:unit": "\"./vendor/bin/codecept\" run unit",
+    "test": "composer test:unit",
+    "start": "composer docker:start"
+  },
   "autoload": {
     "psr-4": {
       "app\\": "src/"
     }
   },
   "require": {
-    "vlucas/phpdotenv": "^2.5"
+    "vlucas/phpdotenv": "^2.5",
+    "nesbot/carbon": "^2.1"
+  },
+  "require-dev": {
+    "codeception/codeception": "^2.4",
+    "fzaninotto/faker": "^1.8",
+    "inpsyde/php-coding-standards": "^0.13.3"
   }
 }
