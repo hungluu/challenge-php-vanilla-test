@@ -1,6 +1,16 @@
-# MVC test with design patterns, unit testing, API structure, UI/UX ...
+MVC CHALLENGE
+=====
 
 [![Cirle CI][cirle-ci-badge]][cirle-ci-url]
+
+ A challenge test, included inside:
+  - Bare MVC (without framework)
+  - Auto tests: only unit tests for now (may add functional and acceptance ones later)
+  - Dockerized Nginx, PHP-FPM, Postgres 9.6
+  - Continuous integration, CI/CD git flow
+  - Domain Driven, Repository pattern, Module pattern, SOLID principles...
+  - More may be added soon...
+
 
 **Table of contents**
 
