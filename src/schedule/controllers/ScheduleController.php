@@ -26,28 +26,32 @@ class ScheduleController extends BaseApiController implements ControllerInterfac
   }
 
   public function actionUpdate (RequestInterface $request, ResponseInterface $response) {
+    $params = $request->getParams([
+      'id' => FILTER_VALIDATE_INT,
+      'name' => FILTER_SANITIZE_STRING,
+      'status' => FILTER_SANITIZE_STRING,
+      'start_date' => FILTER_SANITIZE_STRING,
+      'end_date' => FILTER_SANITIZE_STRING
+    ]);
     $response->send($this->getApiResponse(ScheduleService::instance()->updateSchedules(
-      $request->getParams([
-        'id' => FILTER_VALIDATE_INT
-      ]),
-      $request->getParams([
-        'name' => FILTER_SANITIZE_STRING,
-        'status' => FILTER_SANITIZE_STRING,
-        'start_date' => FILTER_SANITIZE_STRING,
-        'end_date' => FILTER_SANITIZE_STRING
-      ])
+      [
+        'id' => $params['id']
+      ],
+      [
+        'name' => $params['name'],
+        'status' => $params['status'],
+        'start_date' => $params['start_date'],
+        'end_date' => $params['end_date']
+      ]
     )));
   }
 
   public function actionDelete (RequestInterface $request, ResponseInterface $response) {
-    $response->send($this->getApiResponse(ScheduleService::instance()->deleteSchedules(
-      $request->getParams([
-        'id' => FILTER_VALIDATE_INT,
-        'name' => FILTER_SANITIZE_STRING,
-        'status' => FILTER_SANITIZE_STRING,
-        'start_date' => FILTER_SANITIZE_STRING,
-        'end_date' => FILTER_SANITIZE_STRING
-      ])
-    )));
+    $params = $request->getParams([
+      'id' => FILTER_VALIDATE_INT | FILTER_SANITIZE_NUMBER_INT
+    ]);
+    $response->send($this->getApiResponse(ScheduleService::instance()->deleteSchedules([
+      'id' => $params['id']
+    ])));
   }
 }

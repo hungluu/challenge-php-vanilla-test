@@ -40,7 +40,8 @@
         
         // Init scheduler
         scheduler.init('scheduler', date, mode)
-        scheduler.parse(res.data.events, 'json')
+        var events = res.data.events
+        scheduler.parse(events, 'json')
         
         // Init events
         $('.button-create').click(function () {
@@ -80,7 +81,7 @@
      * @param {function} errorCallback
      */
     list: function (callback, errorCallback) {
-      this.request('GET', {}, callback, errorCallback, 'Can not get schedule list')
+      this.request('GET', null, callback, errorCallback, 'Can not get schedule list')
     },
 
     /**
@@ -90,7 +91,12 @@
      * @param {function} errorCallback
      */
     createItem: function (attributes, callback, errorCallback) {
-      this.request('POST', attributes, callback, errorCallback, 'Can not create schedule item')
+      this.request('POST', {
+        name: attributes.name,
+        status: attributes.status,
+        start_date: moment(attributes.start_date).format('YYYY-MM-DD HH:mm:ss'),
+        end_date: moment(attributes.end_date).format('YYYY-MM-DD HH:mm:ss')
+      }, callback, errorCallback, 'Can not create schedule item')
     },
 
     /**
@@ -100,7 +106,13 @@
      * @param {function} errorCallback
      */
     updateItem: function (attributes, callback, errorCallback) {
-      this.request('UPDATE', attributes, callback, errorCallback, 'Can not update schedule item')
+      this.request('UPDATE', {
+        id: attributes.id,
+        name: attributes.name,
+        status: attributes.status,
+        start_date: moment(attributes.start_date).format('YYYY-MM-DD HH:mm:ss'),
+        end_date: moment(attributes.end_date).format('YYYY-MM-DD HH:mm:ss')
+      }, callback, errorCallback, 'Can not update schedule item')
     },
 
     /**
@@ -110,7 +122,9 @@
      * @param {function} errorCallback
      */
     deleteItem: function (conditions, callback, errorCallback) {
-      this.request('DELETE', conditions, callback, errorCallback, 'Can not delete schedule item')
+      this.request('DELETE', {
+        id: conditions.id
+      }, callback, errorCallback, 'Can not delete schedule item')
     },
 
     /**
@@ -140,10 +154,11 @@
       }
       
       // Send ajax
+      method = method || 'GET'
       $.ajax({
-        type: method || 'GET',
+        type: method,
         url: this.uri,
-        data: data,
+        data: method === 'GET' ? null : JSON.stringify(data),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function (res) {
@@ -177,6 +192,9 @@
       scheduler.config.last_hour = this.lastHour
       scheduler.config.event_duration = 60
       scheduler.config.auto_end_date = true
+      scheduler.config.drag_resize = false
+      scheduler.config.drag_move = false
+      scheduler.config.drag_create = false
   
       // Custom lightbox
       scheduler.config.lightbox.sections = [
@@ -212,6 +230,7 @@
         }
   
         ev.name = name
+        ev.id = id
         if (is_new) {
           schedule.createItem(ev, function (res) {
             if (res.data.create_count === 0) {
@@ -237,7 +256,7 @@
           // This is a new event
           return true
         }
-  
+        
         schedule.deleteItem(ev, function (res) {
           if (res.data.delete_count === 0) {
             return false // should trigger error
@@ -259,6 +278,11 @@
         }
         
         return true
+      })
+
+      scheduler.attachEvent("onBeforeDrag", function (id) {
+        var event = scheduler.getEvent(id)
+        return !(event.status === EVENT_STATUS_CANCELLED || moment(event.end_date).diff(moment()) < 0)
       })
     },
 

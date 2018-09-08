@@ -10,6 +10,22 @@ services:
     links:
       - php
   php:
-    image: php:7-fpm-alpine
+    build:
+      dockerfile: php.Dockerfile
+      context: .
     volumes:
       - ../../:/var/www/html
+    links:
+      - db
+  db:
+    image: postgres:9.6
+    volumes:
+       - ../migrations:/migrations
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: test
+    ports:
+      - "5432:5432"
+    
+    

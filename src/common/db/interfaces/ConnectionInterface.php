@@ -1,5 +1,5 @@
 <?php
-namespace app\db\interfaces;
+namespace app\common\db\interfaces;
 
 /**
  * Interface ConnectionInterface
