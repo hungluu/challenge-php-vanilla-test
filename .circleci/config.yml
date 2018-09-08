@@ -17,8 +17,9 @@ jobs:
     working_directory: ~/repo
     
     branches:
-      - master
-      - develop
+      only:
+        - master
+        - develop
 
     steps:
       - checkout # special step to check out source code to working directory
